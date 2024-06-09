@@ -2,6 +2,8 @@ import React from "react";
 import DeleteIcon from "../assets/delete.png";
 import EditIcon from "../assets/edit.png";
 import StarIcon from "../assets/star.png";
+import { useDispatch } from "react-redux";
+import { deleteBook, editBook } from "../redux/books/actions";
 
 const BookCard = ({ book }) => {
   const { name, author, thumbnail, rating, price, featured } = book;
@@ -13,6 +15,7 @@ const BookCard = ({ book }) => {
     }
     return images;
   };
+  const dispatch = useDispatch();
 
   return (
     <div className="grid grid-cols-[170px_auto] gap-4 border bg-white rounded-md">
@@ -33,8 +36,18 @@ const BookCard = ({ book }) => {
             <span>&nbsp;</span>
           )}
           <div className="flex gap-3 absolute top-0 right-2">
-            <img className="w-7 cursor-pointer" src={EditIcon} alt="edit" />
-            <img className="w-7 cursor-pointer" src={DeleteIcon} alt="delete" />
+            <img
+              className="w-7 cursor-pointer"
+              src={EditIcon}
+              alt="edit"
+              onClick={() => dispatch(editBook(book))}
+            />
+            <img
+              className="w-7 cursor-pointer"
+              src={DeleteIcon}
+              alt="delete"
+              onClick={() => dispatch(deleteBook(book))}
+            />
           </div>
         </div>
         <div className="flex flex-col gap-1 mt-2">

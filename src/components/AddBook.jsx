@@ -1,10 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { set, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { addBook, updateBook } from "../redux/books/actions";
 
 const AddBook = () => {
+  // form handler
+  const { register, handleSubmit, setValue, reset } = useForm();
+
+  const dispatch = useDispatch();
+
+  const booksToEdit = useSelector((state) => state.addBookReducer.booksToEdit);
+  const newId = booksToEdit + 1;
+
+  useEffect(() => {
+    if (booksToEdit) {
+      setValue("name", booksToEdit.name);
+      setValue("author", booksToEdit.author);
+      setValue("thumbnail", booksToEdit.thumbnail);
+      setValue("price", booksToEdit.price);
+      setValue("rating", booksToEdit.rating);
+      setValue("featured", booksToEdit.featured);
+      setValue("id", booksToEdit.id);
+    } else {
+      reset({
+        name: "",
+        author: "",
+        thumbnail: "",
+        price: "",
+        rating: "",
+        featured: false,
+        id: newId,
+      });
+    }
+  }, [booksToEdit, setValue, reset]);
+
+  const onSubmit = (data) => {
+    if (booksToEdit) {
+      dispatch(updateBook(data));
+    } else {
+      dispatch(addBook({ ...data, id: newId }));
+    }
+    reset({
+      name: "",
+      author: "",
+      thumbnail: "",
+      price: "",
+      rating: "",
+      featured: false,
+      id: "",
+    });
+  };
+
   return (
     <div className=" bg-white p-5 rounded-md">
       <h2 className="text-2xl font-bold mb-3">Add New Book</h2>
-      <form className="flex flex-col gap-3 w-full">
+      <form
+        className="flex flex-col gap-3 w-full"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {/* Book Name */}
         <div className="flex flex-col gap-2">
           <label htmlFor="name">Book Name</label>
@@ -13,6 +66,7 @@ const AddBook = () => {
             name="name"
             id="name"
             className="border px-2 py-1 focus:outline-none"
+            {...register("name", { required: true })}
           />
         </div>
         {/* Book Name */}
@@ -24,6 +78,7 @@ const AddBook = () => {
             name="author"
             id="author"
             className="border px-2 py-1 focus:outline-none"
+            {...register("author", { required: true })}
           />
         </div>
         {/* Author Name */}
@@ -35,6 +90,7 @@ const AddBook = () => {
             name="thumbnail"
             id="thumbnail"
             className="border px-2 py-1 focus:outline-none"
+            {...register("thumbnail", { required: true })}
           />
         </div>
         {/* Book Thumbnail */}
@@ -47,6 +103,7 @@ const AddBook = () => {
               name="price"
               id="price"
               className="border px-2 py-1 focus:outline-none"
+              {...register("price", { required: true })}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -56,6 +113,7 @@ const AddBook = () => {
               name="rating"
               id="rating"
               className="border px-2 py-1 focus:outline-none"
+              {...register("rating", { required: true })}
             />
           </div>
         </div>
@@ -67,6 +125,7 @@ const AddBook = () => {
             name="featured"
             id="featured"
             className="border px-2 py-1 focus:outline-none"
+            {...register("featured")}
           />
           <label htmlFor="featured">This as a featured Book</label>
         </div>
@@ -78,7 +137,7 @@ const AddBook = () => {
             type="submit"
             className="bg-theme-900 text-white px-4 py-2 rounded-md w-full"
           >
-            Add Book
+            {booksToEdit ? "Update Book" : "Add Book"}
           </button>
         </div>
         {/* Add Book Button */}
