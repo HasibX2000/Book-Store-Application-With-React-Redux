@@ -4,7 +4,7 @@ import SearchIcon from "../assets/search.svg";
 
 const Navbar = () => {
   return (
-    <nav className="flex flex-col gap-5 md:gap-0 md:flex-row items-center justify-between w-full py-4">
+    <nav className="flex flex-col gap-5 md:gap-0 md:flex-row items-center justify-between w-full py-4 mb-5">
       <img src={Logo} alt="logo" className="w-48" />
       <ul className="flex gap-3">
         <li>
