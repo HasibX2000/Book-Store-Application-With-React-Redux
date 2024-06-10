@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import BookCard from "./BookCard";
+import fetchBooks from "../redux/books/thunk/fetchBooks";
 
 const BookList = () => {
   const booksdata = useSelector((state) => state.addBookReducer.books);
 
   const [filterStatus, setFilterStatus] = useState("all");
   const searchTerm = useSelector((state) => state.searchReducer.term);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
 
   const filterByStatus = (book) => {
     if (filterStatus === "featured") {
@@ -52,12 +59,13 @@ const BookList = () => {
         </div>
       </div>
       <div className="grid lg:grid-cols-2 gap-5">
-        {booksdata
-          .filter(filterByStatus)
-          .filter(filterByName)
-          .map((book) => (
-            <BookCard book={book} key={book.id} />
-          ))}
+        {booksdata &&
+          booksdata
+            .filter(filterByStatus)
+            .filter(filterByName)
+            .map((book) => <BookCard book={book} key={book.id} />)}
+        {/* {
+          booksdata.map((book) => <BookCard book={book} key={book.id} />)} */}
       </div>
     </div>
   );

@@ -1,10 +1,21 @@
-import { ADD_BOOK, DELETE_BOOK, EDIT_BOOK, UPDATE_BOOK } from "./actionTypes";
+import {
+  ADD_BOOK,
+  DELETE_BOOK,
+  EDIT_BOOK,
+  LOAD_BOOK,
+  UPDATE_BOOK,
+} from "./actionTypes";
 import initialState from "./initialState";
 
 const addBooksReducer = (state = initialState, action) => {
   const payload = action.payload;
 
   switch (action.type) {
+    case LOAD_BOOK:
+      return {
+        books: action.payload,
+      };
+
     case ADD_BOOK:
       return {
         ...state,

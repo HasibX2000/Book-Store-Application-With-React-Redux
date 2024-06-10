@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addBook, updateBook } from "../redux/books/actions";
+import addNewBooks from "../redux/books/thunk/addNewBooks";
+import updateOldBooks from "../redux/books/thunk/updateOldBooks";
 
 const AddBook = () => {
   // form handler
@@ -36,9 +38,9 @@ const AddBook = () => {
 
   const onSubmit = (data) => {
     if (booksToEdit) {
-      dispatch(updateBook(data));
+      dispatch(updateOldBooks(data));
     } else {
-      dispatch(addBook({ ...data, id: newId }));
+      dispatch(addNewBooks({ ...data, id: newId }));
     }
     reset({
       name: "",

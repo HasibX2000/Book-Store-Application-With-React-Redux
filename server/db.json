@@ -6,7 +6,7 @@
       "thumbnail": "https://m.media-amazon.com/images/I/51Ga5GuElyL._SX331_BO1,204,203,200_.jpg",
       "price": 14,
       "rating": 3,
-      "featured": false,
+      "featured": true,
       "id": 1
     },
     {
@@ -26,6 +26,15 @@
       "rating": 4,
       "featured": true,
       "id": 4
+    },
+    {
+      "name": "The Last Thing He Told Me: A Novel",
+      "author": "Laura Dave",
+      "thumbnail": "https://m.media-amazon.com/images/I/51Ga5GuElyL._SX331_BO1,204,203,200_.jpg",
+      "price": "100",
+      "rating": "5",
+      "featured": false,
+      "id": 5
     }
   ]
 }

@@ -3,7 +3,9 @@ import DeleteIcon from "../assets/delete.png";
 import EditIcon from "../assets/edit.png";
 import StarIcon from "../assets/star.png";
 import { useDispatch } from "react-redux";
-import { deleteBook, editBook } from "../redux/books/actions";
+import { deleteBook } from "../redux/books/actions";
+import editOldBook from "../redux/books/thunk/editOldBook";
+import deleteOldBook from "../redux/books/thunk/deleteOldBook";
 
 const BookCard = ({ book }) => {
   const { name, author, thumbnail, rating, price, featured } = book;
@@ -40,13 +42,13 @@ const BookCard = ({ book }) => {
               className="w-7 cursor-pointer"
               src={EditIcon}
               alt="edit"
-              onClick={() => dispatch(editBook(book))}
+              onClick={() => dispatch(editOldBook(book))}
             />
             <img
               className="w-7 cursor-pointer"
               src={DeleteIcon}
               alt="delete"
-              onClick={() => dispatch(deleteBook(book))}
+              onClick={() => dispatch(deleteOldBook(book))}
             />
           </div>
         </div>
