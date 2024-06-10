@@ -54,7 +54,7 @@ const AddBook = () => {
   };
 
   return (
-    <div className=" bg-[#f8f8f8] p-5 rounded-md h-fit">
+    <div className=" bg-white p-5 rounded-md h-fit">
       <h2 className="text-2xl font-bold mb-3">Add New Book</h2>
       <form
         className="flex flex-col gap-3 w-full"
